@@ -15,12 +15,11 @@ Một chatbot sử dụng kỹ thuật **RAG (Retrieval-Augmented Generation)** 
 
 ---
 
-## 📁 Cấu trúc thư mục
+### 📁 Cấu trúc thư mục
 
-\`\`\`bash
 rag_chatbot/
 ├── app/
-│ ├── **init**.py
+│ ├── init.py
 │ ├── api.py
 │ ├── chatbot.py
 │ ├── config.py
@@ -35,7 +34,6 @@ rag_chatbot/
 ├── .env
 ├── .gitignore
 └── requirements.txt
-\`\`\`
 
 ---
 
