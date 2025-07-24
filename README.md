@@ -17,6 +17,7 @@ Một chatbot sử dụng kỹ thuật **RAG (Retrieval-Augmented Generation)** 
 
 ### 📁 Cấu trúc thư mục
 
+```
 rag_chatbot/
 ├── app/
 │ ├── init.py
@@ -34,6 +35,7 @@ rag_chatbot/
 ├── .env
 ├── .gitignore
 └── requirements.txt
+```
 
 ---
 
@@ -150,4 +152,8 @@ MIT License.
 
 ## 👨‍💻 Tác giả
 
-Dự án bởi [Tên bạn] – Trung tâm CNTT.
+Dự án bởi Lê Đức Anh - Lê Văn Minh.
+
+```
+
+```
