@@ -17,125 +17,139 @@ Một chatbot sử dụng kỹ thuật **RAG (Retrieval-Augmented Generation)** 
 
 ## 📁 Cấu trúc thư mục
 
-```bash
+\`\`\`bash
 rag_chatbot/
 ├── app/
-│   ├── __init__.py              # Khởi động app
-│   ├── api.py                   # Giao diện Gradio
-│   ├── chatbot.py               # Xử lý câu hỏi và sinh câu trả lời
-│   ├── config.py                # Đọc biến môi trường
-│   ├── data_loader.py           # Xử lý file .docx, tạo FAISS
-│   ├── embedder.py              # Nhúng và truy xuất vector
-│   └── llm_client.py            # Gọi API OpenRouter
+│ ├── **init**.py
+│ ├── api.py
+│ ├── chatbot.py
+│ ├── config.py
+│ ├── data_loader.py
+│ ├── embedder.py
+│ └── llm_client.py
 ├── data/
-│   └── test.docx                # File dữ liệu đầu vào
+│ └── test.docx
 ├── vector_store/
-│   └── vectorized_data.pkl      # Vector + chunks (tự tạo sau lần đầu)
-├── main.py                      # Entry point gọi start_app()
-├── .env                         # Biến môi trường (không commit)
+│ └── vectorized_data.pkl
+├── main.py
+├── .env
 ├── .gitignore
 └── requirements.txt
-⚙️ Yêu cầu
-Python 3.10 hoặc 3.11 (không khuyến nghị dùng 3.12)
+\`\`\`
 
-Internet (để gọi OpenRouter)
+---
 
-📦 Cài đặt
-bash
-Copy
-Edit
+## ⚙️ Yêu cầu
+
+- Python 3.10 hoặc 3.11
+- Internet (để gọi OpenRouter)
+
+---
+
+## 📦 Cài đặt
+
+\`\`\`bash
+
 # 1. Clone project
+
 git clone https://github.com/tenban/rag_chatbot.git
 cd rag_chatbot
 
 # 2. Tạo virtual env
+
 python -m venv .venv
-source .venv/bin/activate  # Windows: .venv\Scripts\activate
+source .venv/bin/activate # Windows: .venv\Scripts\activate
 
 # 3. Cài thư viện
+
 pip install -r requirements.txt
 
 # 4. Tạo file .env
-cp .env.example .env  # hoặc tự tạo và cấu hình như bên dưới
+
+cp .env.example .env # hoặc tự tạo và cấu hình như bên dưới
 
 # 5. Chạy chatbot
-python main.py
-🔐 Cấu hình .env
-Tạo file .env và thêm:
 
-env
-Copy
-Edit
+python main.py
+\`\`\`
+
+---
+
+## 🔐 Cấu hình `.env`
+
+\`\`\`env
 API_KEY=sk-or-v1-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 API_URL=https://openrouter.ai/api/v1/chat/completions
 MODEL=deepseek/deepseek-chat-v3-0324:free
-📌 Bạn có thể dùng bất kỳ model miễn phí nào được hỗ trợ bởi OpenRouter.
+\`\`\`
 
-💡 Cách hoạt động
-Khi chạy lần đầu, hệ thống:
+---
 
-Tải file data/test.docx
+## 💡 Cách hoạt động
 
-Chia nhỏ và nhúng văn bản thành vector
+1. Khi chạy lần đầu:
 
-Lưu vào FAISS (vector_store/vectorized_data.pkl)
+   - Tải file `data/test.docx`
+   - Chia nhỏ và nhúng văn bản thành vector
+   - Lưu vào FAISS (`vector_store/vectorized_data.pkl`)
 
-Khi người dùng đặt câu hỏi (bài viết cần chấm điểm):
+2. Khi người dùng đặt câu hỏi:
+   - Chatbot tìm đoạn văn liên quan trong FAISS
+   - Tạo prompt và gửi lên OpenRouter
+   - Trả về phản hồi từ LLM
 
-Chatbot tìm các đoạn văn liên quan trong FAISS
+---
 
-Tạo prompt chi tiết gửi lên OpenRouter
+## 🧪 Demo Gradio
 
-Nhận phản hồi, hiển thị qua Gradio
+Chạy:
+\`\`\`bash
+python main.py
+\`\`\`
 
-🧪 Demo Gradio
-Khi chạy, bạn sẽ thấy:
+Mở trình duyệt tại: http://127.0.0.1:7860
 
-bash
-Copy
-Edit
-Running on local URL:  http://127.0.0.1:7860
-Truy cập địa chỉ đó để chat với hệ thống.
+---
 
-📌 Format đầu ra mẫu
-text
-Copy
-Edit
+## 📌 Format đầu ra mẫu
+
+\`\`\`text
 a. Điểm
+
 - Task fulfillment: 3
 - Organization: 3
 - Vocabulary: 3
 - Grammar: 2
-=> Overall: 2.75
+  => Overall: 2.75
 
 b. Chữa bài
+
 - Nhận xét chung:
 - Vấn đề chung:
 - Các lỗi chi tiết:
-+ Lỗi từ vựng:
-+ Lỗi ngữ pháp:
-+ Lỗi diễn đạt:
-✅ TODO tiếp theo
- Cho phép người dùng upload file Word mới và xử lý lại FAISS
 
- Lưu lịch sử chấm điểm
-
- Triển khai trên server thật (Hugging Face Space, Streamlit Cloud, Render...)
-
- Gắn ảnh tiêu chí chấm điểm
-
-📄 License
-MIT License.
-
-👨‍💻 Tác giả
-Dự án bởi [Tên bạn] – Trung tâm CNTT.
-
-css
-Copy
-Edit
+* Lỗi từ vựng:
+* Lỗi ngữ pháp:
+* Lỗi diễn đạt:
+  \`\`\`
 
 ---
 
-✅ Nếu bạn muốn mình **tạo sẵn file `README.md` này trong thư mục dự án hiện tại** hoặc **gửi bản markdown đẹp (PDF / HTML)** thì chỉ cần nói:
-**"tạo file README trong project"** hoặc **"xuất PDF đẹp"**.
-```
+## ✅ TODO tiếp theo
+
+- [ ] Cho phép upload file mới
+- [ ] Lưu lịch sử
+- [ ] Triển khai thật
+- [ ] Gắn ảnh tiêu chí chấm điểm
+
+---
+
+## 📄 License
+
+MIT License.
+
+---
+
+## 👨‍💻 Tác giả
+
+Dự án bởi [Tên bạn] – Trung tâm CNTT.
